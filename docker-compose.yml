@@ -1,0 +1,20 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: reachinbox-redis
+    # appendonly = durable on disk, so delayed jobs survive Redis restarts.
+    # noeviction = BullMQ requirement (Redis must never silently drop job keys).
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  redis-data:

@@ -1,0 +1,16 @@
+{
+  "name": "reachinbox-email-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ReachInbox email scheduler: React + Express + BullMQ + Redis + Nodemailer (Ethereal)",
+  "scripts": {
+    "setup": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "redis:up": "docker compose up -d",
+    "redis:down": "docker compose down",
+    "smoke": "npm --prefix backend run smoke"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
